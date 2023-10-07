@@ -52,6 +52,8 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+  
+  config.active_job.queue_adapter = :inline
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -73,7 +75,6 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  
-  
+
   config.hosts << "f12f3083e91c4e589984f4ce313da08b.vfs.cloud9.ap-northeast-1.amazonaws.com"
 end
