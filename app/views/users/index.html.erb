@@ -1,7 +1,7 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
-      <%= render partial: 'books/user_info',  locals: { user:current_user, newBook:@book} %>
+      <%= render partial: 'books/user_info', locals: { user:current_user, newBook:@book} %>
     </div>
     <div class="col-md-8">
       <h2>Users</h2>
@@ -16,7 +16,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= image_tag user.get_profile_image(80, 80)ｄさｓ %></td>
+              <td><%= image_tag user.get_profile_image(80, 80) ;%></td>
               <td><%= user.name %></td>
               <td>
                 <%= link_to 'Show', user_path(id: user.id)%>
