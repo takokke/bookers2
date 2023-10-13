@@ -18,7 +18,7 @@
         <tbody>
           <% @books.each do |book|%>
             <tr>
-              <td><%= image_tag 'default-image.jpg', :size => '80x80'%></td>
+              <td><%= image_tag book.user.get_profile_image(80, 80)%></td>
               <td>              
                 <%= link_to book_path(id: book.id) do %>
                   <%= book.title %>

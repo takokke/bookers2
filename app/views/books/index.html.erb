@@ -19,7 +19,7 @@
             <tr>
               <td style="width: 104px;">
                 <%= link_to user_path(id: book.user.id) do %>
-                  <%= image_tag 'default-image.jpg', :size => '80x80'%>
+                  <%= image_tag  book.user.get_profile_image(80, 80) %>
                 <% end %>
               </td>
               <td  style="width: 147.33px;">
