@@ -101,9 +101,11 @@
         </nav>
       <% end %>
     </header>
+    <p id="notice">
     <% flash.each do |message_type, message| %>
-      <p id="<%= message_type %>"><%= message %></p>
+      <%= message %>
     <% end %>
+    </p>
     <main>
       <%= yield %>
     </main>
