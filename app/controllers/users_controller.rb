@@ -12,6 +12,11 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @user = current_user
+  end
+  
+  def update
+    
   end
   
   def user_params
