@@ -26,17 +26,36 @@
         <tbody>
           <% @books.each do |book|%>
             <tr>
-              <td style="width: 104px;">
+              <!--<td style="width: 104px;">-->
+              <td>
                 <%= link_to user_path(id: book.user.id) do %>
                   <%= image_tag  book.user.get_profile_image(80, 80) %>
                 <% end %>
               </td>
-              <td  style="width: 147.33px;">
+              <!--<td  style="width: 147.33px;">-->
+              <td>
                 <%= link_to book_path(id: book.id) do %>
                   <%= book.title %>
                 <% end %>
                 </td>
-              <td style="width: 264.66px;"><%= book.body %></td>
+              <!--<td style="width: 264.66px;">-->
+              <td>
+                <%= book.body %>
+              </td>
+              <td>
+                <% if book.favorited_by?(current_user) %>
+                  <%= link_to book_favorites_path(book_id: book.id), method: :delete do %>
+                    <i class="fa fa-heart text-danger"><%= book.favorites.count %></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to book_favorites_path(book_id: book.id), method: :post do %>
+                    <i class="fa fa-heart text-primary"><%= book.favorites.count %></i>
+                  <% end %>
+                <% end %>
+              <td>
+              <td>
+                コメント数: 0
+              </td>
             </tr>
           <% end %>
         </tbody>
