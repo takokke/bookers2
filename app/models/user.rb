@@ -9,15 +9,22 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_one_attached :profile_image
   
-  # フォローする相手が複数いる
-  has_many :followers, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # ユーザーは「自身が相手をフォローしているという関係」を複数もつ
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id", 
+                                  dependent: :destroy
+                                  
   # フォローしてくれる相手が複数いる
-  has_many :followeds, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", 
+                                   foreign_key: "followed_id", 
+                                   dependent: :destroy
   
-  # 自分がフォローしているユーザを取得
-  has_many :following_users, through: :followers, source: :followed
+  # 自分がフォローしているユーザ(following)を取得
+  # 「following配列の元はfollowed idの集合である」をRailsに明示する
+  has_many :following_users, through: :active_relationships, source: :followed
   # 自分をフォローしてくれているユーザを取得
-  has_many :follower_users, through: :followeds, source: :follower
+  # 「followers配列の元はfollower idの集合である」をRailsに明示する
+  has_many :follower_users, through: :passive_relationships, source: :follower
     
   
   validates :name, uniqueness: true
@@ -36,12 +43,12 @@ class User < ApplicationRecord
   
   #　フォローしたときの処理
   def follow(user_id)
-    followers.create(followed_id: user_id)
+    active_relationships.create(followed_id: user_id)
   end
   
   #　フォローを外すときの処理
   def unfollow(user_id)
-    followers.find_by(followed_id: user_id).destroy
+    active_relationships.find_by(followed_id: user_id).destroy
   end
   
   #  指定したユーザーをフォローしていればtrueを返す
